@@ -1,0 +1,211 @@
+ <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HTML & CSS — Справочник</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <header class="header">
+        <a href="#" class="logo">
+            <span class="logo-icon">&lt;/&gt;</span>
+            <span>HTML <span class="logo-amp">&</span> CSS</span>
+        </a>
+
+        <nav class="navigation">
+    <a href="#" class="nav-link active">Главная</a>
+    <a href="tasks.html" class="nav-link">Задания</a>
+    <a href="#html" class="nav-link">HTML</a>
+    <a href="#css" class="nav-link">CSS</a>
+    <a href="playground.html" class="nav-link">Playground</a>
+    <a href="#about" class="nav-link">О проекте</a>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <section class="hero">
+            <div class="hero-label">
+                СПРАВОЧНИК ДЛЯ РАЗРАБОТЧИКОВ
+            </div>
+
+            <h1>
+                Изучай <span class="gradient-text">HTML & CSS</span>
+            </h1>
+
+            <p class="hero-description">
+                Всё о создании сайтов в одном месте.
+                Подробные объяснения, примеры кода
+                и полезные материалы для начинающих.
+            </p>
+
+            <div class="search-box">
+                <span class="search-icon">&#9906;</span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Найди тег, свойство или функцию..."
+                    autocomplete="off"
+                >
+
+                <span class="search-shortcut">Поиск</span>
+            </div>
+
+            <p class="search-hint">
+                Например: div, margin, display, color
+            </p>
+        </section>
+
+        <section class="categories" id="categories">
+
+            <a href="#html" class="category-card html-card">
+                <div class="category-icon">&lt;/&gt;</div>
+                <h2>HTML</h2>
+                <p>Структура сайта и HTML-теги</p>
+                <span class="card-link">Изучить HTML &rarr;</span>
+            </a>
+
+            <a href="#css" class="category-card css-card">
+                <div class="category-icon">{ }</div>
+                <h2>CSS</h2>
+                <p>Цвета, стили, размеры и анимации</p>
+                <span class="card-link">Изучить CSS &rarr;</span>
+            </a>
+
+            <a href="#examples" class="category-card examples-card">
+                <div class="category-icon">01</div>
+                <h2>Примеры</h2>
+                <p>Готовый код с объяснениями</p>
+                <span class="card-link">Смотреть &rarr;</span>
+            </a>
+
+        </section>
+
+        <section class="content-section" id="html">
+            <div class="section-heading">
+                <div>
+                    <span class="section-label">РАЗДЕЛ 01</span>
+                    <h2>Основы HTML</h2>
+                </div>
+                <span class="section-symbol html-symbol">&lt;H&gt;</span>
+            </div>
+
+            <p class="section-description">
+                HTML определяет структуру и содержимое веб-страницы.
+            </p>
+
+            <div class="topic-list">
+                <div class="topic">
+                    <span class="topic-code">&lt;h1&gt;</span>
+                    <span class="topic-name">Заголовки</span>
+                </div>
+
+                <div class="topic">
+                    <span class="topic-code">&lt;p&gt;</span>
+                    <span class="topic-name">Текстовые абзацы</span>
+                </div>
+
+                <div class="topic">
+                    <span class="topic-code">&lt;a&gt;</span>
+                    <span class="topic-name">Ссылки</span>
+                </div>
+
+                <div class="topic">
+                    <span class="topic-code">&lt;img&gt;</span>
+                    <span class="topic-name">Изображения</span>
+                </div>
+ <div class="topic">
+                    <span class="topic-code">&lt;div&gt;</span>
+                    <span class="topic-name">Блоки и контейнеры</span>
+                </div>
+
+                <div class="topic">
+                    <span class="topic-code">&lt;button&gt;</span>
+                    <span class="topic-name">Кнопки</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="css">
+            <div class="section-heading">
+                <div>
+                    <span class="section-label">РАЗДЕЛ 02</span>
+                    <h2>Основы CSS</h2>
+                </div>
+                <span class="section-symbol css-symbol">{ }</span>
+            </div>
+
+            <p class="section-description">
+                CSS отвечает за внешний вид, расположение и анимации.
+            </p>
+
+            <div class="topic-list">
+                <div class="topic">
+                    <span class="topic-code">color</span>
+                    <span class="topic-name">Цвет текста</span>
+                </div>
+
+                <div class="topic">
+                    <span class="topic-code">margin</span>
+                    <span class="topic-name">Внешние отступы</span>
+                </div>
+
+                <div class="topic">
+                    <span class="topic-code">padding</span>
+                    <span class="topic-name">Внутренние отступы</span>
+                </div>
+
+                <div class="topic">
+                    <span class="topic-code">display</span>
+                    <span class="topic-name">Тип отображения</span>
+                </div>
+
+                <div class="topic">
+                    <span class="topic-code">flex</span>
+                    <span class="topic-name">Расположение элементов</span>
+                </div>
+
+                <div class="topic">
+                    <span class="topic-code">animation</span>
+                    <span class="topic-name">Анимации</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section examples-section" id="examples">
+            <span class="section-label">РАЗДЕЛ 03</span>
+            <h2>Учись на примерах</h2>
+
+            <p class="section-description">
+                Разбирай код, понимай каждую строчку
+                и применяй знания в собственных проектах.
+            </p>
+
+            <div class="code-example">
+                <div class="code-header">
+                    <span>example.html</span>
+                    <span class="code-status">HTML</span>
+                </div>
+
+                <pre><code>&lt;h1&gt;Привет, мир!&lt;/h1&gt;
+&lt;p&gt;Мой первый сайт.&lt;/p&gt;</code></pre>
+            </div>
+        </section>
+
+        <footer class="footer" id="about">
+            <div class="footer-logo">HTML & CSS</div>
+            <p>Изучай. Практикуйся. Создавай.</p>
+            <span>Справочник для будущих разработчиков.</span>
+        </footer>
+
+    </main>
+
+</body>
+</html>

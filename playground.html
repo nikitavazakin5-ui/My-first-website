@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playground — HTML & CSS</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body {
+      background: #090d18;
+      color: #e8edff;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    ::selection { background: #7657ff; color: white; }
+
+    /* ===== ШАПКА ===== */
+    .header {
+      min-height: 70px;
+      padding: 12px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      background: #0c1120;
+      border-bottom: 1px solid #202942;
+      flex-shrink: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #7857ff, #168bff);
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+    }
+
+    .logo-amp { color: #a48cff; }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 16px;
+      border-radius: 10px;
+      border: 1px solid #303c5d;
+      background: #10182a;
+      color: #e8edff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: Arial, sans-serif;
+    }
+
+    .btn:hover {
+      border-color: #7964e8;
+      background: #161f35;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #7857ff, #168bff);
+      border-color: transparent;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+      border-color: transparent;
+      background: linear-gradient(135deg, #7857ff, #168bff);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #1a9b6c, #22c55e);
+      border-color: transparent;
+      color: white;
+    }
+
+    .btn-success:hover {
+      opacity: 0.9;
+      border-color: transparent;
+    }
+
+    .btn-danger:hover {
+      border-color: #ff6b81;
+      color: #ff8b9b;
+    }
+
+    /* ===== ПАНЕЛЬ ЗАДАНИЯ ===== */
+    .task-panel {
+      display: none;
+      background: #0d1423;
+      border-bottom: 1px solid #202d49;
+      padding: 16px 7%;
+      flex-shrink: 0;
+    }
+
+    .task-panel.visible {
+      display: block;
+    }
+
+    .task-panel-inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .task-info h2 {
+      font-size: 16px;
+      color: #a995ff;
+      margin-bottom: 6px;
+    }
+
+    .task-info p {
+      font-size: 14px;
+      color: #9ba8c7;
+      max-width: 700px;
+    }
+
+    .task-info code {
+      background: #111b2d;
+      padding: 2px 7px;
+      border-radius: 5px;
+      color: #7fceff;
+      font-family: Consolas, monospace;
+      font-size: 13px;
+    }
+
+    .task-actions {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    /* ===== ОШИБКА ===== */
+    .error-panel {
+      display: none;
+      background: #2a1215;
+      border-bottom: 1px solid #ff6b81;
+      padding: 14px 7%;
+      flex-shrink: 0;
+    }
+
+    .error-panel.visible {
+      display: block;
+    }
+
+    .error-panel-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .error-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      line-height: 1.3;
+    }
+
+    .error-content h3 {
+      color: #ff6b81;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .error-content p {
+      color: #ffb3be;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .error-content code {
+      background: #3d1a1f;
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: #ff8b9b;
+      font-family: Consolas, monospace;
+      font-size: 12px;
+    }
+
+    /* ===== ПОДСКАЗКА ===== */
+    .hint-panel {
+      display: none;
+      background: #1a1830;
+      border-bottom: 1px solid #7964e8;
+      padding: 14px 7%;
+      flex-shrink: 0;
+    }
+
+    .hint-panel.visible {
+      display: block;
+    }
+
+    .hint-panel-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .hint-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .hint-content h3 {
+      color: #a48cff;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .hint-content p {
+      color: #c1cce3;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .hint-content code {
+      background: #29214c;
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: #b8a7ff;
+      font-family: Consolas, monospace;
+      font-size: 12px;
+    }
+
+    .btn-hint {
+      border-color: #7964e8;
+      color: #a48cff;
+    }
+
+    .btn-hint:hover {
+      background: #1a1830;
+      border-color: #a48cff;
+    }
+
+    .btn-surrender {
+      border-color: #ff6b81;
+      color: #ff8b9b;
+    }
+
+    .btn-surrender:hover {
+      background: #2a1215;
+      border-color: #ff6b81;
+    }
+
+    /* ===== ОСНОВНАЯ СЕТКА ===== */
+    .playground {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    @media (max-width: 900px) {
+      .playground {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+      }
+    }
+
+    /* ===== РЕДАКТОРЫ ===== */
+    .editors {
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid #202942;
+      overflow: hidden;
+      background: #090d18;
+    }
+
+    .editor-tabs {
+      display: flex;
+      background: #0c1120;
+      border-bottom: 1px solid #202942;
+      flex-shrink: 0;
+    }
+
+    .tab {
+      padding: 12px 22px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #9ba8c7;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .tab:hover { color: #e8edff; }
+    .tab.active {
+      color: #a995ff;
+      border-bottom-color: #7857ff;
+    }
+
+    .editor-panels {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+    }
+
+    .panel.active { display: flex; }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+      background: #0d1423;
+      border-bottom: 1px solid #202d49;
+      font-size: 12px;
+      color: #9ba8c7;
+      flex-shrink: 0;
+    }
+
+    .panel-header .filename {
+      color: #a995ff;
+      font-weight: 600;
+    }
+
+    textarea {
+      flex: 1;
+      width: 100%;
+      background: #090d18;
+      color: #e8edff;
+      border: none;
+      outline: none;
+      resize: none;
+      padding: 18px 20px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      tab-size: 2;
+      caret-color: #a995ff;
+    }
+
+    textarea::placeholder { color: #4a5568; }
+
+    /* ===== ПРЕВЬЮ ===== */
+    .preview-wrap {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: #0c1120;
+      border-bottom: 1px solid #202942;
+      flex-shrink: 0;
+    }
+
+    .preview-header span {
+      font-size: 13px;
+      font-weight: 600;
+      color: #9ba8c7;
+    }
+
+    .preview-size {
+      font-size: 12px;
+      color: #64728f;
+      font-family: Consolas, monospace;
+    }
+
+    iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+      background: #fff;
+    }
+
+    /* ===== СТАТУС-БАР ===== */
+    .statusbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 18px;
+      background: #0c1120;
+      border-top: 1px solid #202942;
+      font-size: 12px;
+      color: #64728f;
+      flex-shrink: 0;
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #55e3ad;
+    }
+
+    .status-dot.error { background: #ff6b81; }
+    .status-dot.success { background: #22c55e; }
+
+    .shortcuts { display: flex; gap: 16px; }
+    .shortcuts span { display: flex; align-items: center; gap: 5px; }
+
+    kbd {
+      display: inline-block;
+      padding: 2px 6px;
+      border: 1px solid #303c5d;
+      border-radius: 5px;
+      background: #10182a;
+      font-size: 11px;
+      font-family: Consolas, monospace;
+      color: #9ba8c7;
+    }
+
+    /* ===== МОДАЛКА УСПЕХА ===== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(9, 13, 24, 0.85);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.visible {
+      display: flex;
+    }
+
+    .modal {
+      background: #0e1525;
+      border: 1px solid #303c5d;
+      border-radius: 18px;
+      padding: 40px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      animation: modalIn 0.3s ease;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .modal h2 {
+      font-size: 22px;
+      margin-bottom: 8px;
+      color: #55e3ad;
+    }
+
+    .modal p {
+      color: #9ba8c7;
+      margin-bottom: 24px;
+      font-size: 15px;
+    }
+
+    .modal-xp {
+      display: inline-block;
+      padding: 6px 16px;
+      background: #29214c;
+      color: #b8a7ff;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .modal-btns {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 700px) {
+      .header {
+        padding: 12px 4%;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .header-actions {
+        width: 100%;
+        justify-content: center;
+      }
+      .btn { padding: 8px 12px; font-size: 12px; }
+      .shortcuts { display: none; }
+      .task-panel { padding: 14px 4%; }
+      .task-panel-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Шапка -->
+  <header class="header">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">&lt;/&gt;</span>
+      <span>Playground <span class="logo-amp">&</span> Practice</span>
+    </a>
+
+    <div class="header-actions">
+      <a href="tasks.html" class="btn" id="btn-back-tasks" style="display:none">
+        ← К заданиям
+      </a>
+      <a href="index.html" class="btn" id="btn-back-home">
+        ← На главную
+      </a>
+      <button class="btn btn-primary" id="btn-run">▶ Запустить</button>
+      <button class="btn btn-success" id="btn-check" style="display:none">✓ Проверить</button>
+      <button class="btn" id="btn-reset">↺ Сбросить</button>
+    </div>
+  </header>
+
+  <!-- Панель задания -->
+  <div class="task-panel" id="task-panel">
+    <div class="task-panel-inner">
+      <div class="task-info">
+        <h2 id="task-title">Задание</h2>
+        <p id="task-instruction"></p>
+      </div>
+      <div class="task-actions">
+        <button class="btn btn-success" id="btn-check-panel">✓ Проверить</button>
+        <button class="btn btn-hint" id="btn-hint">💡 Подсказка</button>
+        <button class="btn btn-surrender" id="btn-surrender">🏳 Сдаться</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Панель ошибки -->
+  <div class="error-panel" id="error-panel">
+    <div class="error-panel-inner">
+      <div class="error-icon">❌</div>
+      <div class="error-content">
+        <h3>Есть ошибки</h3>
+        <p id="error-text">Проверь код ещё раз</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Панель подсказки -->
+  <div class="hint-panel" id="hint-panel">
+    <div class="hint-panel-inner">
+      <div class="hint-icon">💡</div>
+      <div class="hint-content">
+        <h3>Подсказка</h3>
+        <p id="hint-text"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Основная область -->
+  <div class="playground">
+    <section class="preview-wrap">
+      <div class="preview-header">
+        <span>Превью результата</span>
+        <span class="preview-size" id="preview-size">—</span>
+      </div>
+      <iframe id="preview" sandbox="allow-scripts"></iframe>
+    </section>
+
+    <section class="editors">
+      <div class="editor-tabs">
+        <div class="tab active" data-tab="html">HTML</div>
+        <div class="tab" data-tab="css">CSS</div>
+      </div>
+      <div class="editor-panels">
+        <div class="panel active" id="panel-html">
+          <div class="panel-header">
+            <span class="filename">index.html</span>
+            <span id="html-lines">0 строк</span>
+          </div>
+          <textarea id="html-code" spellcheck="false" placeholder="Пиши HTML здесь..."></textarea>
+        </div>
+        <div class="panel" id="panel-css">
+          <div class="panel-header">
+            <span class="filename">styles.css</span>
+            <span id="css-lines">0 строк</span>
+          </div>
+          <textarea id="css-code" spellcheck="false" placeholder="Пиши CSS здесь..."></textarea>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="statusbar">
+    <div class="status-left">
+      <span class="status-dot" id="status-dot"></span>
+      <span id="status">Готово</span>
+    </div>
+    <div class="shortcuts">
+      <span><kbd>Ctrl</kbd> + <kbd>Enter</kbd> — запустить</span>
+      <span><kbd>Tab</kbd> — отступ</span>
+    </div>
+  </div>
+
+  <!-- Модалка успеха -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-icon">🎉</div>
+      <h2>Отлично!</h2>
+      <p id="modal-text">Задание выполнено</p>
+      <div class="modal-xp" id="modal-xp">+10 XP</div>
+      <div class="modal-btns">
+        <a href="tasks.html" class="btn">К заданиям</a>
+        <button class="btn btn-primary" id="btn-next">Следующее →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===================== ЗАДАНИЯ =====================
+    const TASKS = {
+      "1-1": {
+        title: "1.1 — Создай заголовок",
+        instruction: "Напиши заголовок <code>Мой первый сайт</code> с помощью тега <code>&lt;h1&gt;</code>.",
+        startHTML: "<!-- Напиши заголовок ниже -->\n",
+        startCSS: "",
+        xp: 10,
+        next: "1-2",
+        check(html) {
+          return /<h1[^>]*>\s*Мой первый сайт\s*<\/h1>/i.test(html);
+        }
+      },
+      "1-2": {
+        title: "1.2 — Добавь абзац текста",
+        instruction: "Под заголовком добавь абзац с текстом: <code>Я изучаю HTML и это круто!</code>",
+        startHTML: "<h1>Мой первый сайт</h1>\n<!-- Добавь абзац ниже -->\n",
+        startCSS: "",
+        xp: 10,
+        next: "1-3",
+        check(html) {
+          return /<h1[^>]*>.*<\/h1>/i.test(html) &&
+                 /<p[^>]*>\s*Я изучаю HTML и это круто!\s*<\/p>/i.test(html);
+        }
+      },
+      "1-3": {
+        title: "1.3 — Сделай ссылку",
+        instruction: "Сделай ссылку с текстом <code>Перейти в Google</code>, которая ведёт на <code>https://google.com</code>.",
+        startHTML: "<h1>Полезные ссылки</h1>\n<!-- Сделай ссылку ниже -->\n",
+        startCSS: "",
+        xp: 10,
+        next: "1-4",
+        check(html) {
+          return /<a[^>]*href\s*=\s*["']https?:\/\/(www\.)?google\.com["'][^>]*>\s*Перейти в Google\s*<\/a>/i.test(html);
+        }
+      },
+      "1-4": {
+        title: "1.4 — Вставь изображение",
+        instruction: "Вставь изображение. Используй адрес <code>https://picsum.photos/300/200</code> и добавь атрибут <code>alt=\"Картинка\"</code>.",
+        startHTML: "<h1>Моя картинка</h1>\n<!-- Вставь изображение ниже -->\n",
+        startCSS: "",
+        xp: 15,
+        next: "1-5",
+        check(html) {
+          return /<img[^>]*src\s*=\s*["']https:\/\/picsum\.photos\/300\/200["'][^>]*>/i.test(html) &&
+                 /alt\s*=\s*["']Картинка["']/i.test(html);
+        }
+      },
+      "1-5": {
+        title: "1.5 — Собери простую страницу",
+        instruction: "Собери страницу, в которой есть: заголовок <code>&lt;h1&gt;</code> «Обо мне», абзац <code>&lt;p&gt;</code>, ссылка <code>&lt;a&gt;</code> и картинка <code>&lt;img&gt;</code>.",
+        startHTML: "<!-- Собери страницу здесь -->\n",
+        startCSS: "",
+        xp: 20,
+        next: "2-1",
+        check(html) {
+          return /<h1[^>]*>/i.test(html) &&
+                 /<p[^>]*>/i.test(html) &&
+                 /<a[^>]*href/i.test(html) &&
+                 /<img[^>]*src/i.test(html);
+        }
+      },
+
+      // ===== УРОВЕНЬ 2: CSS текст и цвета =====
+      "2-1": {
+        title: "2.1 — Измени цвет текста",
+        instruction: "Сделай текст заголовка красным. Используй свойство <code>color: red;</code> для селектора <code>h1</code>.",
+        startHTML: "<h1>Красный заголовок</h1>\n<p>Этот текст пока обычный.</p>",
+        startCSS: "/* Напиши стили ниже */\n",
+        xp: 10,
+        next: "2-2",
+        check(html, css) {
+          return /h1\s*\{[^}]*color\s*:\s*(red|#f00|#ff0000|rgb\s*\(\s*255\s*,\s*0\s*,\s*0\s*\))/i.test(css);
+        }
+      },
+      "2-2": {
+        title: "2.2 — Размер шрифта",
+        instruction: "Сделай заголовок размером <code>36px</code>. Используй свойство <code>font-size</code>.",
+        startHTML: "<h1>Большой заголовок</h1>\n<p>Обычный текст.</p>",
+        startCSS: "/* Напиши стили ниже */\n",
+        xp: 10,
+        next: "2-3",
+        check(html, css) {
+          return /h1\s*\{[^}]*font-size\s*:\s*36px/i.test(css);
+        }
+      },
+      "2-3": {
+        title: "2.3 — Жирный и цветной текст",
+        instruction: "Сделай абзац <code>синим</code> и <code>жирным</code>. Используй <code>color: blue;</code> и <code>font-weight: bold;</code> для селектора <code>p</code>.",
+        startHTML: "<h1>Заголовок</h1>\n<p>Этот текст должен стать синим и жирным.</p>",
+        startCSS: "/* Напиши стили ниже */\n",
+        xp: 15,
+        next: "2-4",
+        check(html, css) {
+          const hasColor = /p\s*\{[^}]*color\s*:\s*(blue|#00f|#0000ff|rgb\s*\(\s*0\s*,\s*0\s*,\s*255\s*\))/i.test(css);
+          const hasWeight = /p\s*\{[^}]*font-weight\s*:\s*(bold|700)/i.test(css);
+          return hasColor && hasWeight;
+        }
+      },
+      "2-4": {
+        title: "2.4 — Выравнивание текста",
+        instruction: "Выровняй заголовок по центру. Используй <code>text-align: center;</code> для <code>h1</code>.",
+        startHTML: "<h1>Центр</h1>\n<p>Текст слева, как обычно.</p>",
+        startCSS: "/* Напиши стили ниже */\n",
+        xp: 10,
+        next: "2-5",
+        check(html, css) {
+          return /h1\s*\{[^}]*text-align\s*:\s*center/i.test(css);
+        }
+      },
+      "2-5": {
+        title: "2.5 — Стилизуй карточку",
+        instruction: "Сделай для <code>.card</code>: фон <code>#1a1a2e</code>, цвет текста <code>white</code>, скругление <code>border-radius: 12px</code> и внутренний отступ <code>padding: 24px</code>.",
+        startHTML: "<div class=\"card\">\n  <h1>Карточка</h1>\n  <p>Стилизуй меня через CSS</p>\n</div>",
+        startCSS: "/* Напиши стили для .card */\n",
+        xp: 20,
+        next: "3-1",
+        check(html, css) {
+          const bg = /\.card\s*\{[^}]*background(-color)?\s*:\s*#1a1a2e/i.test(css);
+          const color = /\.card\s*\{[^}]*color\s*:\s*(white|#fff|#ffffff)/i.test(css);
+          const radius = /\.card\s*\{[^}]*border-radius\s*:\s*12px/i.test(css);
+          const pad = /\.card\s*\{[^}]*padding\s*:\s*24px/i.test(css);
+          return bg && color && radius && pad;
+        }
+      },
+
+      // ===== УРОВЕНЬ 3: Отступы и размеры =====
+      "3-1": {
+        title: "3.1 — Внутренний отступ (padding)",
+        instruction: "Добавь блоку <code>.box</code> внутренний отступ <code>padding: 30px</code>.",
+        startHTML: "<div class=\"box\">Контент внутри</div>",
+        startCSS: ".box {\n  background: #7857ff;\n  color: white;\n  /* Добавь padding */\n}",
+        xp: 10,
+        next: "3-2",
+        check(html, css) {
+          return /\.box\s*\{[^}]*padding\s*:\s*30px/i.test(css);
+        }
+      },
+      "3-2": {
+        title: "3.2 — Внешний отступ (margin)",
+        instruction: "Добавь блоку <code>.box</code> внешний отступ сверху <code>margin-top: 40px</code>.",
+        startHTML: "<p>Текст сверху</p>\n<div class=\"box\">Блок с отступом</div>",
+        startCSS: ".box {\n  background: #168bff;\n  color: white;\n  padding: 20px;\n  /* Добавь margin-top */\n}",
+        xp: 10,
+        next: "3-3",
+        check(html, css) {
+          return /\.box\s*\{[^}]*margin-top\s*:\s*40px/i.test(css);
+        }
+      },
+      "3-3": {
+        title: "3.3 — Ширина и высота",
+        instruction: "Сделай блок шириной <code>200px</code> и высотой <code>100px</code>.",
+        startHTML: "<div class=\"box\">200 × 100</div>",
+        startCSS: ".box {\n  background: #55e3ad;\n  color: #090d18;\n  /* Добавь width и height */\n}",
+        xp: 10,
+        next: "3-4",
+        check(html, css) {
+          return /\.box\s*\{[^}]*width\s*:\s*200px/i.test(css) &&
+                 /\.box\s*\{[^}]*height\s*:\s*100px/i.test(css);
+        }
+      },
+      "3-4": {
+        title: "3.4 — Центрирование через margin",
+        instruction: "Отцентрируй блок по горизонтали с помощью <code>margin: 0 auto</code>. У блока уже есть ширина.",
+        startHTML: "<div class=\"box\">Я по центру</div>",
+        startCSS: ".box {\n  background: #a48cff;\n  color: white;\n  width: 250px;\n  padding: 20px;\n  text-align: center;\n  /* Добавь margin для центрирования */\n}",
+        xp: 15,
+        next: "3-5",
+        check(html, css) {
+          return /\.box\s*\{[^}]*margin\s*:\s*0\s+auto/i.test(css);
+        }
+      },
+      "3-5": {
+        title: "3.5 — Карточка с отступами",
+        instruction: "Сделай для <code>.card</code>: <code>width: 300px</code>, <code>padding: 24px</code>, <code>margin: 40px auto</code>, <code>border-radius: 12px</code>, фон <code>#0e1525</code>.",
+        startHTML: "<div class=\"card\">\n  <h2>Готовая карточка</h2>\n  <p>С отступами и размерами</p>\n</div>",
+        startCSS: "body { background: #090d18; color: #e8edff; font-family: Arial, sans-serif; }\n/* Стилизуй .card */\n",
+        xp: 20,
+        next: "4-1",
+        check(html, css) {
+          return /\.card\s*\{[^}]*width\s*:\s*300px/i.test(css) &&
+                 /\.card\s*\{[^}]*padding\s*:\s*24px/i.test(css) &&
+                 /\.card\s*\{[^}]*margin\s*:\s*40px\s+auto/i.test(css) &&
+                 /\.card\s*\{[^}]*border-radius\s*:\s*12px/i.test(css) &&
+                 /\.card\s*\{[^}]*background(-color)?\s*:\s*#0e1525/i.test(css);
+        }
+      },
+
+      // ===== УРОВЕНЬ 4: Flexbox =====
+      "4-1": {
+        title: "4.1 — Включи Flexbox",
+        instruction: "Сделай контейнер flex-контейнером: добавь <code>display: flex</code> для <code>.container</code>.",
+        startHTML: "<div class=\"container\">\n  <div class=\"item\">1</div>\n  <div class=\"item\">2</div>\n  <div class=\"item\">3</div>\n</div>",
+        startCSS: ".container {\n  background: #0e1525;\n  padding: 20px;\n  /* Добавь display: flex */\n}\n.item {\n  background: #7857ff;\n  color: white;\n  padding: 20px 30px;\n  margin: 5px;\n  border-radius: 8px;\n}",
+        xp: 10,
+        next: "4-2",
+        check(html, css) {
+          return /\.container\s*\{[^}]*display\s*:\s*flex/i.test(css);
+        }
+      },
+      "4-2": {
+        title: "4.2 — Центр по горизонтали",
+        instruction: "Выровняй элементы по центру горизонтально: <code>justify-content: center</code>.",
+        startHTML: "<div class=\"container\">\n  <div class=\"item\">A</div>\n  <div class=\"item\">B</div>\n  <div class=\"item\">C</div>\n</div>",
+        startCSS: ".container {\n  display: flex;\n  background: #0e1525;\n  padding: 20px;\n  /* Добавь justify-content */\n}\n.item {\n  background: #168bff;\n  color: white;\n  padding: 20px 30px;\n  margin: 5px;\n  border-radius: 8px;\n}",
+        xp: 10,
+        next: "4-3",
+        check(html, css) {
+          return /\.container\s*\{[^}]*justify-content\s*:\s*center/i.test(css);
+        }
+      },
+      "4-3": {
+        title: "4.3 — Центр по вертикали",
+        instruction: "Выровняй элементы по центру вертикально: <code>align-items: center</code>. Контейнеру уже задана высота.",
+        startHTML: "<div class=\"container\">\n  <div class=\"item\">1</div>\n  <div class=\"item\">2</div>\n</div>",
+        startCSS: ".container {\n  display: flex;\n  height: 200px;\n  background: #0e1525;\n  padding: 20px;\n  /* Добавь align-items */\n}\n.item {\n  background: #55e3ad;\n  color: #090d18;\n  padding: 20px 30px;\n  margin: 5px;\n  border-radius: 8px;\n}",
+        xp: 10,
+        next: "4-4",
+        check(html, css) {
+          return /\.container\s*\{[^}]*align-items\s*:\s*center/i.test(css);
+        }
+      },
+      "4-4": {
+        title: "4.4 — Пространство между элементами",
+        instruction: "Распредели элементы с равными промежутками: <code>justify-content: space-between</code>.",
+        startHTML: "<div class=\"container\">\n  <div class=\"item\">Лево</div>\n  <div class=\"item\">Центр</div>\n  <div class=\"item\">Право</div>\n</div>",
+        startCSS: ".container {\n  display: flex;\n  background: #0e1525;\n  padding: 20px;\n  /* Добавь justify-content: space-between */\n}\n.item {\n  background: #a48cff;\n  color: white;\n  padding: 16px 24px;\n  border-radius: 8px;\n}",
+        xp: 15,
+        next: "4-5",
+        check(html, css) {
+          return /\.container\s*\{[^}]*justify-content\s*:\s*space-between/i.test(css);
+        }
+      },
+      "4-5": {
+        title: "4.5 — Полное центрирование",
+        instruction: "Отцентрируй элемент и по горизонтали, и по вертикали. Нужны: <code>display: flex</code>, <code>justify-content: center</code>, <code>align-items: center</code>.",
+        startHTML: "<div class=\"container\">\n  <div class=\"box\">Центр</div>\n</div>",
+        startCSS: ".container {\n  height: 250px;\n  background: #0e1525;\n  border: 1px solid #303c5d;\n  border-radius: 12px;\n  /* Сделай полное центрирование */\n}\n.box {\n  background: linear-gradient(135deg, #7857ff, #168bff);\n  color: white;\n  padding: 24px 40px;\n  border-radius: 10px;\n  font-weight: bold;\n}",
+        xp: 20,
+        next: "5-1",
+        check(html, css) {
+          return /\.container\s*\{[^}]*display\s*:\s*flex/i.test(css) &&
+                 /\.container\s*\{[^}]*justify-content\s*:\s*center/i.test(css) &&
+                 /\.container\s*\{[^}]*align-items\s*:\s*center/i.test(css);
+        }
+      },
+
+      // ===== УРОВЕНЬ 5: Мини-проекты =====
+      "5-1": {
+        title: "5.1 — Красивая кнопка",
+        instruction: "Стилизуй кнопку: фон <code>#7857ff</code>, цвет текста <code>white</code>, <code>padding: 12px 28px</code>, <code>border-radius: 8px</code>, <code>border: none</code>, <code>font-size: 16px</code>.",
+        startHTML: "<button class=\"btn\">Нажми меня</button>",
+        startCSS: "body {\n  background: #090d18;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 100vh;\n}\n/* Стилизуй .btn */\n",
+        xp: 15,
+        next: "5-2",
+        check(html, css) {
+          return /\.btn\s*\{[^}]*background(-color)?\s*:\s*#7857ff/i.test(css) &&
+                 /\.btn\s*\{[^}]*color\s*:\s*(white|#fff)/i.test(css) &&
+                 /\.btn\s*\{[^}]*padding\s*:\s*12px\s+28px/i.test(css) &&
+                 /\.btn\s*\{[^}]*border-radius\s*:\s*8px/i.test(css) &&
+                 /\.btn\s*\{[^}]*border\s*:\s*none/i.test(css);
+        }
+      },
+      "5-2": {
+        title: "5.2 — Карточка профиля",
+        instruction: "Собери карточку: <code>.card</code> с <code>width: 280px</code>, <code>padding: 30px</code>, <code>border-radius: 16px</code>, фон <code>#0e1525</code>, текст по центру. Внутри уже есть имя и описание.",
+        startHTML: "<div class=\"card\">\n  <h2>Алексей</h2>\n  <p>Frontend-разработчик</p>\n</div>",
+        startCSS: "body {\n  background: #090d18;\n  color: #e8edff;\n  font-family: Arial, sans-serif;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 100vh;\n}\n/* Стилизуй .card */\n",
+        xp: 15,
+        next: "5-3",
+        check(html, css) {
+          return /\.card\s*\{[^}]*width\s*:\s*280px/i.test(css) &&
+                 /\.card\s*\{[^}]*padding\s*:\s*30px/i.test(css) &&
+                 /\.card\s*\{[^}]*border-radius\s*:\s*16px/i.test(css) &&
+                 /\.card\s*\{[^}]*background(-color)?\s*:\s*#0e1525/i.test(css) &&
+                 /\.card\s*\{[^}]*text-align\s*:\s*center/i.test(css);
+        }
+      },
+      "5-3": {
+        title: "5.3 — Навигационное меню",
+        instruction: "Сделай горизонтальное меню: <code>.nav</code> с <code>display: flex</code> и <code>gap: 24px</code>. Ссылки уже есть.",
+        startHTML: "<nav class=\"nav\">\n  <a href=\"#\">Главная</a>\n  <a href=\"#\">О нас</a>\n  <a href=\"#\">Контакты</a>\n</nav>",
+        startCSS: "body {\n  background: #090d18;\n  font-family: Arial, sans-serif;\n  padding: 40px;\n}\n.nav a {\n  color: #a48cff;\n  text-decoration: none;\n  font-weight: bold;\n}\n/* Стилизуй .nav */\n",
+        xp: 15,
+        next: "5-4",
+        check(html, css) {
+          return /\.nav\s*\{[^}]*display\s*:\s*flex/i.test(css) &&
+                 /\.nav\s*\{[^}]*gap\s*:\s*24px/i.test(css);
+        }
+      },
+      "5-4": {
+        title: "5.4 — Центрированный блок с кнопкой",
+        instruction: "Отцентрируй <code>.hero</code> на странице (flex + center + center), задай <code>min-height: 100vh</code>. Кнопка внутри уже есть.",
+        startHTML: "<div class=\"hero\">\n  <h1>Добро пожаловать</h1>\n  <button class=\"btn\">Начать</button>\n</div>",
+        startCSS: "body { margin: 0; background: #090d18; color: #e8edff; font-family: Arial, sans-serif; }\nh1 { margin-bottom: 20px; }\n.btn {\n  background: #7857ff;\n  color: white;\n  border: none;\n  padding: 12px 28px;\n  border-radius: 8px;\n  font-size: 16px;\n  cursor: pointer;\n}\n/* Стилизуй .hero */\n",
+        xp: 20,
+        next: "5-5",
+        check(html, css) {
+          return /\.hero\s*\{[^}]*display\s*:\s*flex/i.test(css) &&
+                 /\.hero\s*\{[^}]*justify-content\s*:\s*center/i.test(css) &&
+                 /\.hero\s*\{[^}]*align-items\s*:\s*center/i.test(css) &&
+                 /\.hero\s*\{[^}]*min-height\s*:\s*100vh/i.test(css);
+        }
+      },
+      "5-5": {
+        title: "5.5 — Финальный мини-лендинг",
+        instruction: "Собери всё вместе! Нужно:\n1. <code>.hero</code> — flex, центр, min-height 100vh\n2. <code>h1</code> — цвет #a48cff\n3. <code>.btn</code> — фон #7857ff, цвет white, padding 14px 32px, border-radius 10px, border none",
+        startHTML: "<div class=\"hero\">\n  <h1>Я выучил HTML и CSS!</h1>\n  <button class=\"btn\">Поехали дальше</button>\n</div>",
+        startCSS: "body { margin: 0; background: #090d18; font-family: Arial, sans-serif; }\n/* Напиши все стили */\n",
+        xp: 25,
+        next: null,
+        check(html, css) {
+          const hero = /\.hero\s*\{[^}]*display\s*:\s*flex/i.test(css) &&
+                       /\.hero\s*\{[^}]*justify-content\s*:\s*center/i.test(css) &&
+                       /\.hero\s*\{[^}]*align-items\s*:\s*center/i.test(css) &&
+                       /\.hero\s*\{[^}]*min-height\s*:\s*100vh/i.test(css);
+          const h1 = /h1\s*\{[^}]*color\s*:\s*#a48cff/i.test(css);
+          const btn = /\.btn\s*\{[^}]*background(-color)?\s*:\s*#7857ff/i.test(css) &&
+                      /\.btn\s*\{[^}]*color\s*:\s*(white|#fff)/i.test(css) &&
+                      /\.btn\s*\{[^}]*padding\s*:\s*14px\s+32px/i.test(css) &&
+                      /\.btn\s*\{[^}]*border-radius\s*:\s*10px/i.test(css) &&
+                      /\.btn\s*\{[^}]*border\s*:\s*none/i.test(css);
+          return hero && h1 && btn;
+        }
+      }
+    };
+
+    // ===================== ЭЛЕМЕНТЫ =====================
+    const htmlCode    = document.getElementById("html-code");
+    const cssCode     = document.getElementById("css-code");
+    const preview     = document.getElementById("preview");
+    const statusEl    = document.getElementById("status");
+    const statusDot   = document.getElementById("status-dot");
+    const htmlLines   = document.getElementById("html-lines");
+    const cssLines    = document.getElementById("css-lines");
+    const previewSize = document.getElementById("preview-size");
+    const taskPanel   = document.getElementById("task-panel");
+    const taskTitle   = document.getElementById("task-title");
+    const taskInstr   = document.getElementById("task-instruction");
+    const btnCheck    = document.getElementById("btn-check");
+    const btnCheckPanel = document.getElementById("btn-check-panel");
+    const btnBackTasks = document.getElementById("btn-back-tasks");
+    const btnBackHome  = document.getElementById("btn-back-home");
+    const modal       = document.getElementById("modal");
+    const modalText   = document.getElementById("modal-text");
+    const modalXp     = document.getElementById("modal-xp");
+    const btnNext     = document.getElementById("btn-next");
+
+    let currentTask = null;
+
+    // ===================== DEFAULT =====================
+    const DEFAULT_HTML = `<div class="card">
+  <div class="badge">PLAYGROUND</div>
+  <h1>Привет! 👋</h1>
+  <p>Меняй код справа — и сразу смотри результат.</p>
+  <button class="btn">Нажми меня</button>
+</div>`;
+
+    const DEFAULT_CSS = `* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #090d18, #1a1040);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: #e8edff;
+}
+.card {
+  background: #0e1525;
+  border: 1px solid #303c5d;
+  padding: 40px;
+  border-radius: 18px;
+  text-align: center;
+  max-width: 380px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #29214c;
+  color: #b8a7ff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  border-radius: 6px;
+  margin-bottom: 18px;
+}
+h1 {
+  font-size: 28px;
+  margin-bottom: 12px;
+  background: linear-gradient(90deg, #a38bff, #35b9ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+p { color: #9ba8c7; font-size: 15px; line-height: 1.5; margin-bottom: 28px; }
+.btn {
+  background: linear-gradient(135deg, #7857ff, #168bff);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(120, 87, 255, 0.4);
+}`;
+
+    // ===================== ВКЛАДКИ =====================
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById(`panel-${tab.dataset.tab}`).classList.add("active");
+      });
+    });
+
+    // ===================== СТРОКИ =====================
+    function updateLines() {
+      const h = htmlCode.value.split("\n").length;
+      const c = cssCode.value.split("\n").length;
+      htmlLines.textContent = h + (h === 1 ? " строка" : h < 5 ? " строки" : " строк");
+      cssLines.textContent  = c + (c === 1 ? " строка" : c < 5 ? " строки" : " строк");
+    }
+
+    // ===================== ЗАПУСК =====================
+    function run() {
+      const doc = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${cssCode.value}</style></head><body>${htmlCode.value}</body></html>`;
+      preview.srcdoc = doc;
+      statusEl.textContent = "Обновлено " + new Date().toLocaleTimeString("ru-RU");
+      statusDot.className = "status-dot";
+      updateLines();
+    }
+
+    // ===================== ПОДСКАЗКИ И РЕШЕНИЯ =====================
+    const HINTS = {
+      "1-1": ["Нужен тег <code>&lt;h1&gt;...&lt;/h1&gt;</code>", "Внутри напиши: <code>Мой первый сайт</code>"],
+      "1-2": ["Добавь тег <code>&lt;p&gt;...&lt;/p&gt;</code> под заголовком", "Текст: <code>Я изучаю HTML и это круто!</code>"],
+      "1-3": ["Используй <code>&lt;a href=\"...\"&gt;текст&lt;/a&gt;</code>", "href должен быть <code>https://google.com</code>"],
+      "1-4": ["Тег <code>&lt;img src=\"...\" alt=\"...\"&gt;</code>", "src: <code>https://picsum.photos/300/200</code>, alt: <code>Картинка</code>"],
+      "1-5": ["Нужны теги: <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;a href&gt;</code>, <code>&lt;img src&gt;</code>"],
+      "2-1": ["Пиши в CSS: <code>h1 { color: red; }</code>"],
+      "2-2": ["Пиши: <code>h1 { font-size: 36px; }</code>"],
+      "2-3": ["Для <code>p</code> нужны оба свойства: <code>color: blue;</code> и <code>font-weight: bold;</code>"],
+      "2-4": ["Пиши: <code>h1 { text-align: center; }</code>"],
+      "2-5": ["В <code>.card</code> нужны: background, color, border-radius, padding"],
+      "3-1": ["Добавь внутрь <code>.box</code>: <code>padding: 30px;</code>"],
+      "3-2": ["Добавь: <code>margin-top: 40px;</code>"],
+      "3-3": ["Нужны оба: <code>width: 200px;</code> и <code>height: 100px;</code>"],
+      "3-4": ["Добавь: <code>margin: 0 auto;</code>"],
+      "3-5": ["Нужны: width, padding, margin, border-radius, background"],
+      "4-1": ["Добавь: <code>display: flex;</code>"],
+      "4-2": ["Добавь: <code>justify-content: center;</code>"],
+      "4-3": ["Добавь: <code>align-items: center;</code>"],
+      "4-4": ["Добавь: <code>justify-content: space-between;</code>"],
+      "4-5": ["Нужны три свойства: display: flex, justify-content: center, align-items: center"],
+      "5-1": ["Стилизуй <code>.btn</code>: background, color, padding, border-radius, border"],
+      "5-2": ["Стилизуй <code>.card</code>: width, padding, border-radius, background, text-align"],
+      "5-3": ["Для <code>.nav</code>: <code>display: flex;</code> и <code>gap: 24px;</code>"],
+      "5-4": ["Для <code>.hero</code>: display flex + justify-content center + align-items center + min-height 100vh"],
+      "5-5": ["Нужны стили для .hero, h1 и .btn — смотри условие внимательно"]
+    };
+
+    const SOLUTIONS = {
+      "1-1": { html: "<h1>Мой первый сайт</h1>", css: "" },
+      "1-2": { html: "<h1>Мой первый сайт</h1>\n<p>Я изучаю HTML и это круто!</p>", css: "" },
+      "1-3": { html: "<h1>Полезные ссылки</h1>\n<a href=\"https://google.com\">Перейти в Google</a>", css: "" },
+      "1-4": { html: "<h1>Моя картинка</h1>\n<img src=\"https://picsum.photos/300/200\" alt=\"Картинка\">", css: "" },
+      "1-5": { html: "<h1>Обо мне</h1>\n<p>Привет! Я учу HTML.</p>\n<a href=\"https://google.com\">Мой любимый сайт</a>\n<img src=\"https://picsum.photos/300/200\" alt=\"Фото\">", css: "" },
+      "2-1": { html: null, css: "h1 {\n  color: red;\n}" },
+      "2-2": { html: null, css: "h1 {\n  font-size: 36px;\n}" },
+      "2-3": { html: null, css: "p {\n  color: blue;\n  font-weight: bold;\n}" },
+      "2-4": { html: null, css: "h1 {\n  text-align: center;\n}" },
+      "2-5": { html: null, css: ".card {\n  background: #1a1a2e;\n  color: white;\n  border-radius: 12px;\n  padding: 24px;\n}" },
+      "3-1": { html: null, css: ".box {\n  background: #7857ff;\n  color: white;\n  padding: 30px;\n}" },
+      "3-2": { html: null, css: ".box {\n  background: #168bff;\n  color: white;\n  padding: 20px;\n  margin-top: 40px;\n}" },
+      "3-3": { html: null, css: ".box {\n  background: #55e3ad;\n  color: #090d18;\n  width: 200px;\n  height: 100px;\n}" },
+      "3-4": { html: null, css: ".box {\n  background: #a48cff;\n  color: white;\n  width: 250px;\n  padding: 20px;\n  text-align: center;\n  margin: 0 auto;\n}" },
+      "3-5": { html: null, css: "body { background: #090d18; color: #e8edff; font-family: Arial, sans-serif; }\n.card {\n  width: 300px;\n  padding: 24px;\n  margin: 40px auto;\n  border-radius: 12px;\n  background: #0e1525;\n}" },
+      "4-1": { html: null, css: ".container {\n  background: #0e1525;\n  padding: 20px;\n  display: flex;\n}\n.item {\n  background: #7857ff;\n  color: white;\n  padding: 20px 30px;\n  margin: 5px;\n  border-radius: 8px;\n}" },
+      "4-2": { html: null, css: ".container {\n  display: flex;\n  background: #0e1525;\n  padding: 20px;\n  justify-content: center;\n}\n.item {\n  background: #168bff;\n  color: white;\n  padding: 20px 30px;\n  margin: 5px;\n  border-radius: 8px;\n}" },
+      "4-3": { html: null, css: ".container {\n  display: flex;\n  height: 200px;\n  background: #0e1525;\n  padding: 20px;\n  align-items: center;\n}\n.item {\n  background: #55e3ad;\n  color: #090d18;\n  padding: 20px 30px;\n  margin: 5px;\n  border-radius: 8px;\n}" },
+      "4-4": { html: null, css: ".container {\n  display: flex;\n  background: #0e1525;\n  padding: 20px;\n  justify-content: space-between;\n}\n.item {\n  background: #a48cff;\n  color: white;\n  padding: 16px 24px;\n  border-radius: 8px;\n}" },
+      "4-5": { html: null, css: ".container {\n  height: 250px;\n  background: #0e1525;\n  border: 1px solid #303c5d;\n  border-radius: 12px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.box {\n  background: linear-gradient(135deg, #7857ff, #168bff);\n  color: white;\n  padding: 24px 40px;\n  border-radius: 10px;\n  font-weight: bold;\n}" },
+      "5-1": { html: null, css: "body {\n  background: #090d18;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 100vh;\n}\n.btn {\n  background: #7857ff;\n  color: white;\n  padding: 12px 28px;\n  border-radius: 8px;\n  border: none;\n  font-size: 16px;\n}" },
+      "5-2": { html: null, css: "body {\n  background: #090d18;\n  color: #e8edff;\n  font-family: Arial, sans-serif;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 100vh;\n}\n.card {\n  width: 280px;\n  padding: 30px;\n  border-radius: 16px;\n  background: #0e1525;\n  text-align: center;\n}" },
+      "5-3": { html: null, css: "body {\n  background: #090d18;\n  font-family: Arial, sans-serif;\n  padding: 40px;\n}\n.nav a {\n  color: #a48cff;\n  text-decoration: none;\n  font-weight: bold;\n}\n.nav {\n  display: flex;\n  gap: 24px;\n}" },
+      "5-4": { html: null, css: "body { margin: 0; background: #090d18; color: #e8edff; font-family: Arial, sans-serif; }\nh1 { margin-bottom: 20px; }\n.btn {\n  background: #7857ff;\n  color: white;\n  border: none;\n  padding: 12px 28px;\n  border-radius: 8px;\n  font-size: 16px;\n  cursor: pointer;\n}\n.hero {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  min-height: 100vh;\n}" },
+      "5-5": { html: null, css: "body { margin: 0; background: #090d18; font-family: Arial, sans-serif; }\n.hero {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  min-height: 100vh;\n}\nh1 {\n  color: #a48cff;\n}\n.btn {\n  background: #7857ff;\n  color: white;\n  padding: 14px 32px;\n  border-radius: 10px;\n  border: none;\n}" }
+    };
+
+    const ERROR_MSGS = {
+      "1-1": "Не найден правильный тег <code>&lt;h1&gt;Мой первый сайт&lt;/h1&gt;</code>. Проверь закрывающий тег — нужен <code>&lt;/h1&gt;</code> со слэшем.",
+      "1-2": "Нужен абзац <code>&lt;p&gt;Я изучаю HTML и это круто!&lt;/p&gt;</code> под заголовком.",
+      "1-3": "Ссылка должна быть: <code>&lt;a href=\"https://google.com\"&gt;Перейти в Google&lt;/a&gt;</code>",
+      "1-4": "Нужен <code>&lt;img src=\"https://picsum.photos/300/200\" alt=\"Картинка\"&gt;</code>",
+      "1-5": "Не хватает одного из тегов: <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;a href&gt;</code> или <code>&lt;img src&gt;</code>",
+      "2-1": "В CSS не найден <code>color: red</code> для селектора <code>h1</code>",
+      "2-2": "В CSS не найден <code>font-size: 36px</code> для <code>h1</code>",
+      "2-3": "Для <code>p</code> нужны оба свойства: <code>color: blue</code> и <code>font-weight: bold</code>",
+      "2-4": "Не найден <code>text-align: center</code> для <code>h1</code>",
+      "2-5": "В <code>.card</code> не хватает свойств. Нужны: background #1a1a2e, color white, border-radius 12px, padding 24px",
+      "3-1": "Не найден <code>padding: 30px</code> у <code>.box</code>",
+      "3-2": "Не найден <code>margin-top: 40px</code> у <code>.box</code>",
+      "3-3": "Нужны оба свойства: <code>width: 200px</code> и <code>height: 100px</code>",
+      "3-4": "Не найден <code>margin: 0 auto</code> у <code>.box</code>",
+      "3-5": "Не хватает свойств у <code>.card</code>. Проверь width, padding, margin, border-radius, background",
+      "4-1": "Не найден <code>display: flex</code> у <code>.container</code>",
+      "4-2": "Не найден <code>justify-content: center</code>",
+      "4-3": "Не найден <code>align-items: center</code>",
+      "4-4": "Не найден <code>justify-content: space-between</code>",
+      "4-5": "Нужны все три: <code>display: flex</code>, <code>justify-content: center</code>, <code>align-items: center</code>",
+      "5-1": "Не хватает стилей у <code>.btn</code>. Проверь background, color, padding, border-radius, border",
+      "5-2": "Не хватает стилей у <code>.card</code>. Проверь width, padding, border-radius, background, text-align",
+      "5-3": "Не найдены <code>display: flex</code> и/или <code>gap: 24px</code> у <code>.nav</code>",
+      "5-4": "У <code>.hero</code> не хватает flex-центрирования или <code>min-height: 100vh</code>",
+      "5-5": "Проверь стили <code>.hero</code>, <code>h1</code> (цвет #a48cff) и <code>.btn</code>"
+    };
+
+    let hintIndex = 0;
+
+    // ===================== ПРОВЕРКА =====================
+    function hideError() {
+      document.getElementById("error-panel").classList.remove("visible");
+    }
+
+    function showError(msg) {
+      const panel = document.getElementById("error-panel");
+      document.getElementById("error-text").innerHTML = msg;
+      panel.classList.add("visible");
+      document.getElementById("hint-panel").classList.remove("visible");
+    }
+
+    function checkTask() {
+      if (!currentTask) return;
+      const task = TASKS[currentTask];
+      const html = htmlCode.value;
+      const css  = cssCode.value;
+
+      if (task.check(html, css)) {
+        hideError();
+        document.getElementById("hint-panel").classList.remove("visible");
+        markDone(currentTask);
+        modalText.textContent = `Задание «${task.title}» выполнено!`;
+        modalXp.textContent = `+${task.xp} XP`;
+        modal.classList.add("visible");
+        statusEl.textContent = "Задание выполнено!";
+        statusDot.className = "status-dot success";
+
+        if (task.next) {
+          btnNext.style.display = "";
+          btnNext.onclick = () => {
+            window.location.href = `playground.html?task=${task.next}`;
+          };
+        } else {
+          btnNext.style.display = "none";
+        }
+      } else {
+        const msg = ERROR_MSGS[currentTask] || "Код пока неправильный. Проверь условие задания.";
+        showError(msg);
+        statusEl.textContent = "Есть ошибки — смотри красное сообщение выше";
+        statusDot.className = "status-dot error";
+      }
+    }
+
+    // ===================== ПОДСКАЗКА =====================
+    function showHint() {
+      if (!currentTask) return;
+      const hints = HINTS[currentTask] || ["Посмотри внимательно на условие задания."];
+      const text = hints[Math.min(hintIndex, hints.length - 1)];
+      document.getElementById("hint-text").innerHTML = text;
+      document.getElementById("hint-panel").classList.add("visible");
+      hideError();
+      if (hintIndex < hints.length - 1) hintIndex++;
+    }
+
+    // ===================== СДАТЬСЯ =====================
+    function surrender() {
+      if (!currentTask) return;
+      if (!confirm("Показать правильный ответ? Задание будет засчитано.")) return;
+
+      const sol = SOLUTIONS[currentTask];
+      if (!sol) return;
+
+      if (sol.html !== null && sol.html !== undefined) {
+        htmlCode.value = sol.html;
+      }
+      if (sol.css !== null && sol.css !== undefined) {
+        cssCode.value = sol.css;
+      }
+
+      hideError();
+      document.getElementById("hint-panel").classList.remove("visible");
+      run();
+
+      // Засчитываем задание
+      markDone(currentTask);
+      const task = TASKS[currentTask];
+      modalText.textContent = `Решение показано. Задание «${task.title}» засчитано.`;
+      modalXp.textContent = `+${task.xp} XP`;
+      modal.classList.add("visible");
+      statusEl.textContent = "Решение показано";
+      statusDot.className = "status-dot success";
+
+      if (task.next) {
+        btnNext.style.display = "";
+        btnNext.onclick = () => {
+          window.location.href = `playground.html?task=${task.next}`;
+        };
+      } else {
+        btnNext.style.display = "none";
+      }
+    }
+
+    // ===================== ПРОГРЕСС =====================
+    function getProgress() {
+      try {
+        return JSON.parse(localStorage.getItem("htmlcss_progress") || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function markDone(taskId) {
+      const prog = getProgress();
+      prog[taskId] = true;
+      localStorage.setItem("htmlcss_progress", JSON.stringify(prog));
+    }
+
+    // ===================== ЗАГРУЗКА ЗАДАНИЯ =====================
+    function loadTask(taskId) {
+      const task = TASKS[taskId];
+      if (!task) return;
+
+      currentTask = taskId;
+      hintIndex = 0;
+      htmlCode.value = task.startHTML;
+      cssCode.value = task.startCSS || "";
+
+      taskTitle.textContent = task.title;
+      taskInstr.innerHTML = task.instruction;
+      taskPanel.classList.add("visible");
+      btnCheck.style.display = "";
+      btnCheckPanel.style.display = "";
+      btnBackTasks.style.display = "";
+      btnBackHome.style.display = "none";
+
+      hideError();
+      document.getElementById("hint-panel").classList.remove("visible");
+
+      // Для CSS-заданий сразу открываем вкладку CSS
+      if (taskId.startsWith("2-") || taskId.startsWith("3-") || taskId.startsWith("4-") || taskId.startsWith("5-")) {
+        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+        document.querySelector('.tab[data-tab="css"]').classList.add("active");
+        document.getElementById("panel-css").classList.add("active");
+      }
+
+      run();
+    }
+
+    // ===================== КНОПКИ =====================
+    document.getElementById("btn-run").addEventListener("click", run);
+    document.getElementById("btn-reset").addEventListener("click", () => {
+      if (currentTask && TASKS[currentTask]) {
+        htmlCode.value = TASKS[currentTask].startHTML;
+        cssCode.value = TASKS[currentTask].startCSS || "";
+        hideError();
+        document.getElementById("hint-panel").classList.remove("visible");
+        hintIndex = 0;
+      } else {
+        htmlCode.value = DEFAULT_HTML;
+        cssCode.value = DEFAULT_CSS;
+      }
+      run();
+    });
+
+    btnCheck.addEventListener("click", checkTask);
+    btnCheckPanel.addEventListener("click", checkTask);
+    document.getElementById("btn-hint").addEventListener("click", showHint);
+    document.getElementById("btn-surrender").addEventListener("click", surrender);
+
+    // Закрытие модалки по клику на фон
+    modal.addEventListener("click", e => {
+      if (e.target === modal) modal.classList.remove("visible");
+    });
+
+    // ===================== КЛАВИАТУРА =====================
+    document.addEventListener("keydown", e => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        run();
+      }
+    });
+
+    [htmlCode, cssCode].forEach(ta => {
+      ta.addEventListener("keydown", e => {
+        if (e.key === "Tab") {
+          e.preventDefault();
+          const start = ta.selectionStart;
+          const end = ta.selectionEnd;
+          ta.value = ta.value.substring(0, start) + "  " + ta.value.substring(end);
+          ta.selectionStart = ta.selectionEnd = start + 2;
+        }
+      });
+    });
+
+    let timer;
+    [htmlCode, cssCode].forEach(ta => {
+      ta.addEventListener("input", () => {
+        clearTimeout(timer);
+        timer = setTimeout(run, 400);
+        updateLines();
+      });
+    });
+
+    function updatePreviewSize() {
+      previewSize.textContent = `${preview.clientWidth} × ${preview.clientHeight}`;
+    }
+    window.addEventListener("resize", updatePreviewSize);
+
+    // ===================== СТАРТ =====================
+    const params = new URLSearchParams(window.location.search);
+    const taskId = params.get("task");
+
+    if (taskId && TASKS[taskId]) {
+      loadTask(taskId);
+    } else {
+      htmlCode.value = DEFAULT_HTML;
+      cssCode.value = DEFAULT_CSS;
+      run();
+    }
+    updatePreviewSize();
+  </script>
+</body>
+</html>
